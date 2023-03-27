@@ -28,5 +28,4 @@ const UserModel = sequelize.define('user', {
     }
 });
 
-UserModel.hasMany(XLSXModelData); // to test the association of the users in both models of the DB
 module.exports = UserModel;

@@ -2,20 +2,22 @@
 
 const sequelize = require('../config/db');
 const { DataTypes } = require('sequelize');
-const UserModel = require('./userModel');
+const userModel = require("./userModel");
 
 const XLSXModelData = sequelize.define('xlsxModelData', {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
         require: true
     },
-    user: {
-        type: DataTypes.STRING,
+    userId: {
+        type: DataTypes.UUID,
         allowNull: false,
         require: true,
-        validate: {
-            notEmpty: true
+        references: {
+            model: UserModel,
+            key: 'id'
         }
     },
     forWho:{
@@ -48,5 +50,6 @@ const XLSXModelData = sequelize.define('xlsxModelData', {
     }
 });
 
-XLSXModelData.belongsTo(UserModel, { foreignKey: 'user' });
+XLSXModelData.belongsTo(userModel, { foreignKey: 'userId' });
+
 module.exports = XLSXModelData;
